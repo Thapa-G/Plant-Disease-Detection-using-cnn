@@ -38,7 +38,7 @@ const onImageChange = (e) => {
   const onsubmitchange=async (event)=>{
     event.preventDefault();
     //creating the form instance
-    const submitData= new FormData();
+    const submitData= new FormData(); // declaring the form variable 
     //inorder to send to the backend instance of form i.e.
     //submitData we append the input type and variable where image
     //is stored. Visit line 5 to see variable
@@ -48,7 +48,7 @@ const onImageChange = (e) => {
 
     // try catch to send  data and print response
     try{
-      console.log("CSRFTOKEN:"+csrfToken)
+      // console.log("CSRFTOKEN:"+csrfToken)
        const Response=await axios.post('http://localhost:8000/app/upload/',submitData,{
 
        headers: {
@@ -75,7 +75,7 @@ return (
      form set image */}
     {image && <img alt="preview-image" src={previewUrl} className=" w-60 h-auto border-8 " />}
     
-    <span>
+    <span id='Out_put'>
       <p>Disease Predicted: {prediction}</p>
       <p>Confidence: {confidence}</p>
       </span>

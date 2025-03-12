@@ -10,8 +10,8 @@ from django.contrib.auth.models import User
 class ImageUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageUpload
-        fields = ['image', 'predicted_label']
-        read_only_fields = ['predicted_label'] 
+        fields = ['image', 'predicted_label','confidence']
+        read_only_fields = ['predicted_label','confidence'] 
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
@@ -19,7 +19,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'email']
+        fields = ['username', 'email', 'password']
 
     def create(self, validated_data):
         user = User(

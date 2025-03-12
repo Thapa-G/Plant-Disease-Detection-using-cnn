@@ -8,6 +8,8 @@ urlpatterns = [
      path('logout/',views.logout_view, name='logout'),
      path('cssrf/', views.csrf_token_view, name='csrf_token'),
      path('session-id/',views.get_session_id, name='get_session_id'),
-     path('user-images/', views.UserImagesView, name='user-images'),
+     path('mylist/', views.UserImagesView, name='user-images'),
+     path('get-images/',views.get_processing_images, name='gget_processing_images'),
+     path('get_matr/',views.get_metrics,name="get_metrices"),
      
 ]

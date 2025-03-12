@@ -11,11 +11,12 @@ from .serializers import ImageUploadSerializer,RegisterUserSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
-
+import pandas as pd
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.conf import settings
 import os
+import pickle
 import torch
 from .predict import predict_image, DiseaseCNN  # Assuming prediction logic in a separate file
 
@@ -153,4 +154,76 @@ def get_session_id(request):
 def UserImagesView(request):
         user_images = ImageUpload.objects.filter(user=request.user)
         serializer = ImageUploadSerializer(user_images, many=True)
+
         return Response(serializer.data)
+
+
+
+
+
+
+# def get_processing_images(request):
+#     image_folder = os.path.join(settings.MEDIA_ROOT, 'image_outputs')
+    
+#     if not os.path.exists(image_folder):
+#         return JsonResponse({'images': []})  # Return empty if no images exist
+
+#     image_files = sorted(os.listdir(image_folder), reverse=True)
+#     image_urls = [settings.MEDIA_URL + 'image_outputs/' + img for img in image_files]
+
+#     return JsonResponse({'images': image_urls})
+
+def get_processing_images(request):
+    image_folder = os.path.join(settings.MEDIA_ROOT, 'image_outputs')  # Path to images
+    
+    if not os.path.exists(image_folder):
+        return JsonResponse({'images': []})  # Return empty if no images exist
+    image_files = sorted(os.listdir(image_folder), reverse=True)  # Get latest images first
+    # Create a list of dictionaries containing the image URL and its name
+    image_urls = [
+        {
+            'url': settings.MEDIA_URL + 'image_outputs/' + img,
+            'name': img
+        }
+        for img in image_files
+    ]
+    return JsonResponse({'images': image_urls})
+
+
+# def get_preprocessed_data(request):
+#     data=pd.get_csv("")
+
+
+
+# def get_metrics(request):
+#     print("hello")
+#     return JsonResponse()
+
+# Define directory where pickle files are stored
+PICKLE_DIR = os.path.join(os.path.dirname(__file__), "metrices")  # Correcmetrted path
+def load_pickle_file(file_path):
+    """Loads a pickle file safely."""
+    try:
+        with open(file_path, "rb") as f:
+            return pickle.load(f)  # Ensure the pickle data is JSON serializable
+    except Exception as e:
+        return {"error": str(e)}
+    
+@api_view(['GET'])
+def get_metrics(request):
+    """Returns the contents of multiple pickle files."""
+    try:
+         
+        pickle1_path = os.path.join(PICKLE_DIR, "metrics.pkl")
+        
+        # pickle2_path = os.path.join(PICKLE_DIR, "pickle2.pkl")
+        
+        data1 = load_pickle_file(pickle1_path) if os.path.exists(pickle1_path) else {"error": "File 1 not found"}
+        # data2 = load_pickle_file(pickle2_path) if os.path.exists(pickle2_path) else {"error": "File 2 not found"}
+        
+        return JsonResponse({
+            "metrices": data1,
+            # "pickle2": data2
+        })
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)

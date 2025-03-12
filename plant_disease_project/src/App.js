@@ -5,6 +5,11 @@ import Home from './component/Home';
 import Mylist from './component/Mylist';
 import Register from './component/Register';
 import Login from './component/login';
+import Report from './component/Classification_report';
+import Pre_processing from './component/pre_processing';
+
+import Train from './component/Train';
+import Phase from './component/phase';
 const App = () => {
   return (
     <BrowserRouter>
@@ -14,10 +19,14 @@ const App = () => {
       <Route path="Mylist" element={<Mylist/>}/>
       <Route path="Register" element={<Register/>}/>
       <Route path="/login" element={<Login/>}/>
+      <Route path="Classification_report" element={<Report/>}/>
+      <Route path="Pre_processing" element={<Pre_processing/>}/>
+      <Route path="phase" element={<Phase/>}/>
+      <Route path="Train" element={<Train/>}/>
       </Route>
+      
     </Routes>
     </BrowserRouter>
-    
   )
 }
 

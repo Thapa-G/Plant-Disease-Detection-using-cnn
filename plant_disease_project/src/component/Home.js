@@ -4,11 +4,7 @@ import PicInputForm from './PicInputForm';
 import Footer from './Footer';
 
 const Home = () => {
-  // const pro_contents = [
-  //   { image: "iPhone", head: 'Aashik', content:'aashik' },
-  //   { image: "iPhone", head: 'Jane', content: 'jane' },
-  //   { image: "iPhone", head: 'Manish', content: 'manish'},
-  // ];
+  
   
   return (
     <div className=''>
@@ -25,7 +21,7 @@ const Home = () => {
             
         </div>
         </div>
-        <img src='Images/Artboard 1.png' alt='Tomato _image' className=''/>
+      <img src='Images/Artboard 1.png' alt='Tomato _image' className=''/>
       <div className='pt-10 w-1/3  flex flex-col items-end max-sm:pt-2'>
       <div className='absolute right-72 top-36 '> 
       <img src='Images/arrow.png' alt='arrow' className='w-40 max-sm:hidden'/></div>
@@ -44,6 +40,7 @@ const Home = () => {
         </div>
 
     </div>
+
     <div className='w-full flex justify-center items-center  mt-14'>
       <PicInputForm/>
     </div>
